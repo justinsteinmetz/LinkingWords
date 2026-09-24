@@ -162,7 +162,7 @@ textarea::placeholder{color:var(--ink-soft);opacity:0.7;}
 .mirror{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:0.95rem;line-height:1.7;min-height:3em;}
 .mirror .empty{color:var(--ink-soft);font-style:italic;}
 .mirror-note{font-size:0.8rem;color:var(--ink-soft);margin:6px 0 0;}
-mark.hl{background:var(--j-soft);color:inherit;border-bottom:2px solid var(--j);padding:0 1px;border-radius:2px;}
+mark.hl{background:var(--j-soft);color:inherit;border-bottom:2px solid var(--j);padding:0 1px;border-radius:2px;cursor:pointer;}
 mark.hl-care{background:none;border-bottom:2px dotted var(--ink-soft);}
 .flags{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
 .flags li{font-size:0.85rem;padding:7px 10px;border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:0 var(--radius) var(--radius) 0;}
@@ -251,12 +251,13 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
 
     <div class="care">
       <h3>Handle with care</h3>
-      <p><span class="words">obviously, clearly, undoubtedly, of course</span> — these don't link two ideas. They tell the reader that everyone already agrees, so a sceptical reader starts looking for the weak spot. Use them only when the point really is beyond argument.</p>
+      <p><span class="words">obviously, clearly, undoubtedly, of course, certainly, definitely, surely</span> — these don't link two ideas. They tell the reader that everyone already agrees, so a sceptical reader starts looking for the weak spot. Use them only when the point really is beyond argument.</p>
       <p><span class="words">apparently</span> means <i>anscheinend</i>, not <i>offensichtlich</i>.</p>
     </div>
 
     <h3 class="sub">Which joint? Tap the job each word is doing.</h3>
     <div class="quiz" id="quiz"></div>
+    <button type="button" class="tbtn" id="quizReset" style="margin-top:10px;">Reset quiz</button>
   </section>
 
   <!-- SECTION 3 -->
@@ -281,7 +282,8 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
         <div class="mirror-wrap">
           <h3>What the tracker sees</h3>
           <div class="mirror" id="mirror" aria-live="off"></div>
-          <p class="mirror-note">The tracker only finds words. It can't tell whether each one is doing the right job. You and your partner can. Dotted underline: a handle-with-care word.</p>
+          <p class="mark-info" id="markInfo" aria-live="polite"></p>
+          <p class="mirror-note">The tracker only finds words. It can't tell whether each one is doing the right job. You and your partner can. Tap a highlighted word to see its job. Dotted underline: a handle-with-care word.</p>
           <ul class="flags" id="flags" aria-live="polite"></ul>
         </div>
       </div>
@@ -329,7 +331,7 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
      ex:'Some items, <b>such as</b> blazers, are expensive to replace.'},
     {id:'cause', name:'Cause and result', short:'Cause / result', job:'Says why something happens, or what follows from it.',
      words:[['because','c'],['since','c'],[', so','c'],['because of','n'],['due to','n'],['Therefore','s'],['As a result','s'],['Consequently','s']],
-     match:['because of','because','since','due to','therefore','as a result','consequently','thus'],
+     match:['because of','because','due to','therefore','as a result','consequently','thus'],
      ex:'Nobody competes over clothes. <b>Therefore</b>, there is less pressure to buy brands.',
      note:'<b>so that</b> shows a purpose (<i>damit</i>), not a result: <i>I left early so that I would be on time.</i>'},
     {id:'concede', name:'Concede and contrast', short:'Concede', job:'Admits a point for the other side, or turns to the opposite view.',
@@ -343,7 +345,7 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
      ex:'<b>On balance</b>, the advantages of uniforms outweigh the costs.'}
   ];
   var TAGS = {s:'Start,', c:'+ clause', n:'+ noun', m:'mid'};
-  var CARE = ['obviously','clearly','undoubtedly','of course','apparently','naturally'];
+  var CARE = ['obviously','clearly','undoubtedly','of course','apparently','naturally','certainly','definitely','surely'];
 
   var QUIZ = [
     ['Some subjects, <b>such as</b> maths, need full concentration.','example'],
@@ -414,6 +416,13 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
     });
     quizEl.appendChild(div);
   });
+  document.getElementById('quizReset').addEventListener('click', function(){
+    quizEl.querySelectorAll('.q').forEach(function(div){
+      delete div.dataset.done;
+      div.querySelectorAll('.opt').forEach(function(b){ b.classList.remove('right','wrong'); });
+      div.querySelector('.fb').textContent = '';
+    });
+  });
 
   /* Section 3: prompts */
   var promptsEl = document.getElementById('prompts');
@@ -467,12 +476,19 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
         while((m = r.exec(text))){ hits.push({s:m.index, e:m.index+m[0].length, cat:j.id}); }
       });
     });
-    // "so" only as a result link: after a comma, or at the start of a sentence; not "so that / so many…"
+    // "so" as a result link: after a comma / sentence start, or immediately before a
+    // subject+verb clause (not "so that/so many…", and not "so tired" as an intensifier,
+    // which is never followed shortly by an auxiliary verb)
     var soR = /(,\s*|(?:^|[.!?\n])\s*)(so)\b(?!\s+(?:that|much|many|far|long|few|little)\b)/gi;
     while((m = soR.exec(text))){
       var s = m.index + m[1].length;
       hits.push({s:s, e:s+2, cat:'cause'});
     }
+    var soClauseR = /\bso\b(?!\s+(?:that|much|many|far|long|few|little)\b)(?=\s+(?:[a-z']+\s+){0,2}(?:is|are|was|were|has|have|had|can|could|will|would|do|does|did|should|must|might)\b)/gi;
+    while((m = soClauseR.exec(text))){ hits.push({s:m.index, e:m.index+2, cat:'cause'}); }
+    // "since" as a result link, but not its time sense ("since 2020", "since then")
+    var sinceR = /\bsince\b(?!\s+(?:\d{4}|then\b|last\b|the\s+beginning))/gi;
+    while((m = sinceR.exec(text))){ hits.push({s:m.index, e:m.index+m[0].length, cat:'cause'}); }
     CARE.forEach(function(p){
       var r = rx(p);
       while((m = r.exec(text))){ hits.push({s:m.index, e:m.index+m[0].length, cat:'care'}); }
@@ -514,9 +530,25 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
   }
 
   var mirror = document.getElementById('mirror');
+  var markInfo = document.getElementById('markInfo');
   var flagsEl = document.getElementById('flags');
   var reqEl = document.getElementById('req');
   var countEl = document.getElementById('count');
+
+  function showMarkInfo(cat){
+    if(cat === 'care'){ markInfo.textContent = 'Handle with care: claims the point is beyond argument — is that earned here?'; return; }
+    var j = jointById(cat);
+    markInfo.textContent = j ? (j.name + ': ' + j.job) : '';
+  }
+  mirror.addEventListener('click', function(e){
+    var t = e.target.closest && e.target.closest('mark[data-cat]');
+    if(t) showMarkInfo(t.getAttribute('data-cat'));
+  });
+  mirror.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    var t = e.target.closest && e.target.closest('mark[data-cat]');
+    if(t){ e.preventDefault(); showMarkInfo(t.getAttribute('data-cat')); }
+  });
 
   function render(){
     var text = writer.value;
@@ -530,7 +562,7 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
         html += esc(text.slice(pos, h.s));
         var cls = h.cat === 'care' ? 'hl hl-care' : 'hl j-'+h.cat;
         var title = h.cat === 'care' ? 'Handle with care' : jointById(h.cat).name;
-        html += '<mark class="'+cls+'" title="'+title+'">'+esc(text.slice(h.s, h.e))+'</mark>';
+        html += '<mark class="'+cls+'" data-cat="'+h.cat+'" tabindex="0" role="button" title="'+title+'">'+esc(text.slice(h.s, h.e))+'</mark>';
         pos = h.e;
       });
       html += esc(text.slice(pos));
@@ -557,7 +589,10 @@ footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);
     flagsEl.innerHTML = flags.map(function(f){ return '<li class="'+(f.t==='info'?'info':'')+'">'+esc(f.msg)+'</li>'; }).join('');
 
     var sentences = text.split(/[.!?]+/).filter(function(s){ return s.trim().split(/\s+/).length >= 2; }).length;
+    var lenOk = sentences >= 5 && sentences <= 6;
     countEl.textContent = sentences + (sentences === 1 ? ' sentence' : ' sentences') + ' (target 5–6)';
+    countEl.style.color = text.trim() && lenOk ? 'var(--ok)' : '';
+    countEl.style.fontWeight = text.trim() && lenOk ? '600' : '400';
   }
 
   writer.value = state.text;

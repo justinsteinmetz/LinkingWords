@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Linking words for opinion writing</title>
+<style>
+:root{
+  --paper:#F6F4EF; --card:#FFFFFF; --line:#E1DCCE;
+  --ink:#182430; --ink-soft:#51606E;
+  --accent:#A85518; --accent-soft:#F3E2CC;
+  --ok:#3F6B4E; --ok-soft:#DCEADF;
+  --warn:#8C2F39; --warn-soft:#F4DEDF;
+  --j-add:#33475B; --j-add-soft:#DDE4EB;
+  --j-example:#5E4B8B; --j-example-soft:#E6E0F1;
+  --j-cause:#A85518; --j-cause-soft:#F3E2CC;
+  --j-concede:#8C2F39; --j-concede-soft:#F4DEDF;
+  --j-conclude:#3F6B4E; --j-conclude-soft:#DCEADF;
+  --radius:3px;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono","Cascadia Code",Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#14191F; --card:#1C232B; --line:#2E3842;
+    --ink:#E8E4DA; --ink-soft:#9DA9B4;
+    --accent:#E0924F; --accent-soft:#3A2A1C;
+    --ok:#7FB38F; --ok-soft:#1F3326;
+    --warn:#E08A93; --warn-soft:#3A2226;
+    --j-add:#8FA8C2; --j-add-soft:#23303D;
+    --j-example:#B3A2DB; --j-example-soft:#2C2640;
+    --j-cause:#E0924F; --j-cause-soft:#3A2A1C;
+    --j-concede:#E08A93; --j-concede-soft:#3A2226;
+    --j-conclude:#7FB38F; --j-conclude-soft:#1F3326;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14191F; --card:#1C232B; --line:#2E3842;
+  --ink:#E8E4DA; --ink-soft:#9DA9B4;
+  --accent:#E0924F; --accent-soft:#3A2A1C;
+  --ok:#7FB38F; --ok-soft:#1F3326;
+  --warn:#E08A93; --warn-soft:#3A2226;
+  --j-add:#8FA8C2; --j-add-soft:#23303D;
+  --j-example:#B3A2DB; --j-example-soft:#2C2640;
+  --j-cause:#E0924F; --j-cause-soft:#3A2A1C;
+  --j-concede:#E08A93; --j-concede-soft:#3A2226;
+  --j-conclude:#7FB38F; --j-conclude-soft:#1F3326;
+}
+*,*::before,*::after{box-sizing:inherit;}
+html{background:var(--paper);scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.mono{font-family:var(--mono);}
+button{font:inherit;color:inherit;}
+
+.wrap{max-width:780px;margin:0 auto;padding:36px 22px 80px;}
+
+/* Header */
+header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:22px;}
+h1{font-size:clamp(1.5rem,4vw,2.1rem);line-height:1.15;margin:0 0 6px;letter-spacing:-0.01em;}
+.subtitle{color:var(--ink-soft);margin:0;max-width:58ch;}
+.time-tag{display:inline-block;margin-top:12px;font-size:0.8rem;color:var(--ink-soft);border:1px solid var(--ink-soft);border-radius:var(--radius);padding:2px 8px;}
+
+/* Step nav */
+nav.steps{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 40px;}
+nav.steps a{text-decoration:none;font-size:0.85rem;color:var(--ink-soft);border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:7px 11px;display:flex;gap:7px;align-items:center;}
+nav.steps a:hover{border-color:var(--accent);color:var(--ink);}
+nav.steps .n{font-family:var(--mono);color:var(--accent);font-size:0.8rem;}
+
+/* Sections */
+section{margin-bottom:56px;scroll-margin-top:20px;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:18px;}
+.section-head h2{font-size:1.25rem;margin:0;}
+.section-head .time{font-size:0.8rem;color:var(--ink-soft);white-space:nowrap;font-family:var(--mono);}
+.lead{color:var(--ink-soft);margin:0 0 14px;}
+h3.sub{font-size:0.95rem;margin:28px 0 10px;}
+
+/* Section 1 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px;}
+@media (max-width:620px){.compare{grid-template-columns:1fr;}}
+.para-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;}
+.para-card .label{display:block;font-family:var(--mono);font-size:0.78rem;color:var(--ink-soft);margin-bottom:8px;}
+.para-card p{margin:0;font-size:0.98rem;line-height:1.65;}
+.probe{background:none;border:none;border-bottom:1.5px dashed var(--accent);padding:0 1px;color:var(--accent);font-weight:600;cursor:pointer;border-radius:0;}
+.probe:hover{background:var(--accent-soft);}
+.probe[aria-pressed="true"]{background:var(--accent-soft);border-bottom-style:solid;}
+.prompt-box{border-left:3px solid var(--accent);padding:10px 16px;background:var(--accent-soft);border-radius:0 var(--radius) var(--radius) 0;font-size:0.95rem;}
+.prompt-box p{margin:0;}
+.probe-q{margin-top:8px !important;font-weight:600;min-height:1.5em;}
+.probe-q:empty{display:none;}
+
+/* Section 2: grammar key */
+.key{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:8px;margin-bottom:12px;}
+.key-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;font-size:0.85rem;}
+.key-item .t{display:inline-block;font-family:var(--mono);font-size:0.75rem;border:1px solid var(--ink-soft);border-radius:var(--radius);padding:0 6px;margin-bottom:4px;}
+.key-item i{color:var(--ink-soft);}
+.pair{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:0.92rem;margin-bottom:22px;}
+.pair p{margin:0 0 4px;}
+.pair p:last-child{margin:0;}
+.pair .mark{display:inline-block;width:1.4em;font-weight:700;}
+.pair .yes .mark{color:var(--ok);}
+.pair .no{color:var(--ink-soft);}
+.pair .no .mark{color:var(--warn);}
+.pair .no s{text-decoration-color:var(--warn);}
+
+/* Joint cards */
+.j-add{--j:var(--j-add);--j-soft:var(--j-add-soft);}
+.j-example{--j:var(--j-example);--j-soft:var(--j-example-soft);}
+.j-cause{--j:var(--j-cause);--j-soft:var(--j-cause-soft);}
+.j-concede{--j:var(--j-concede);--j-soft:var(--j-concede-soft);}
+.j-conclude{--j:var(--j-conclude);--j-soft:var(--j-conclude-soft);}
+.joints{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;}
+.joint{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--j);border-radius:var(--radius);padding:14px 16px;}
+.joint h3{margin:0;font-size:1rem;}
+.joint .job{margin:2px 0 10px;color:var(--ink-soft);font-size:0.88rem;}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;}
+.chip{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:var(--radius);font-size:0.86rem;overflow:hidden;}
+.chip .w{padding:3px 8px;}
+.chip .t{padding:3px 6px;background:var(--j-soft);color:var(--j);font-family:var(--mono);font-size:0.7rem;display:flex;align-items:center;white-space:nowrap;}
+.joint .ex{font-size:0.9rem;margin:12px 0 0;color:var(--ink-soft);}
+.joint .ex b{color:var(--j);}
+.joint .note{font-size:0.83rem;margin:10px 0 0;padding:7px 10px;background:var(--j-soft);border-radius:var(--radius);}
+
+.care{margin-top:12px;border:1px dashed var(--ink-soft);border-radius:var(--radius);padding:12px 16px;font-size:0.88rem;}
+.care h3{margin:0 0 4px;font-size:0.95rem;}
+.care p{margin:4px 0 0;color:var(--ink-soft);}
+.care .words{color:var(--ink);font-weight:600;}
+
+/* Quiz */
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 16px;}
+.q{padding:12px 0;border-bottom:1px dashed var(--line);}
+.q:last-child{border-bottom:none;}
+.q p.s{margin:0 0 8px;}
+.opts{display:flex;flex-wrap:wrap;gap:6px;}
+.opt{font-size:0.82rem;padding:5px 10px;border:1px solid var(--line);background:var(--paper);border-radius:var(--radius);cursor:pointer;}
+.opt:hover{border-color:var(--ink-soft);}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:600;}
+.opt.wrong{color:var(--ink-soft);text-decoration:line-through;}
+.fb{font-size:0.82rem;margin:6px 0 0;color:var(--ink-soft);}
+.fb:empty{display:none;}
+
+/* Section 3 */
+.prompts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.prompt-btn{font-size:0.88rem;padding:7px 12px;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);cursor:pointer;text-align:left;}
+.prompt-btn:hover{border-color:var(--ink-soft);}
+.prompt-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.task{font-size:0.92rem;margin:0 0 14px;}
+.task b{font-weight:600;}
+.writing-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:18px;align-items:start;}
+@media (max-width:700px){.writing-layout{grid-template-columns:1fr;}}
+textarea{width:100%;min-height:200px;border:1px solid var(--ink);border-radius:var(--radius);padding:14px;font-family:inherit;font-size:1rem;line-height:1.6;resize:vertical;background:var(--card);color:var(--ink);}
+textarea::placeholder{color:var(--ink-soft);opacity:0.7;}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0 16px;font-size:0.82rem;color:var(--ink-soft);flex-wrap:wrap;}
+.tools .btns{display:flex;gap:6px;}
+.tbtn{font-size:0.8rem;padding:4px 10px;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);cursor:pointer;}
+.tbtn:hover{border-color:var(--ink-soft);}
+.mirror-wrap h3,.side h3{font-family:var(--mono);font-size:0.8rem;font-weight:600;color:var(--ink-soft);margin:0 0 8px;}
+.mirror{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:0.95rem;line-height:1.7;min-height:3em;}
+.mirror .empty{color:var(--ink-soft);font-style:italic;}
+.mirror-note{font-size:0.8rem;color:var(--ink-soft);margin:6px 0 0;}
+mark.hl{background:var(--j-soft);color:inherit;border-bottom:2px solid var(--j);padding:0 1px;border-radius:2px;}
+mark.hl-care{background:none;border-bottom:2px dotted var(--ink-soft);}
+.flags{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
+.flags li{font-size:0.85rem;padding:7px 10px;border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:0 var(--radius) var(--radius) 0;}
+.flags li.info{border-left-color:var(--ink-soft);background:var(--card);}
+
+.side{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:12px;}
+@media (max-width:700px){.side{position:static;}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;}
+.dot-row{display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:4px 0;color:var(--ink-soft);}
+.dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--j);flex:none;}
+.dot-row.filled{color:var(--ink);}
+.dot-row.filled .dot{background:var(--j);}
+.req{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:0.82rem;display:flex;flex-direction:column;gap:3px;color:var(--ink-soft);}
+.req .met{color:var(--ok);font-weight:600;}
+.req .status{margin-top:6px;}
+.req .status.ok{color:var(--ok);font-weight:600;}
+.ref-row{font-size:0.8rem;padding:6px 0;border-top:1px dashed var(--line);}
+.ref-row:first-of-type{border-top:none;padding-top:0;}
+.ref-row b{color:var(--j);display:block;font-size:0.78rem;}
+
+/* Section 4 */
+.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:11px 14px;font-size:0.95rem;}
+.checklist input{margin-top:3px;width:16px;height:16px;accent-color:var(--ok);flex:none;}
+
+footer{color:var(--ink-soft);font-size:0.82rem;border-top:1px solid var(--line);padding-top:16px;margin-top:40px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Linking words for opinion writing</h1>
+    <p class="subtitle">Find out what linking words really do in an argument, then use them to build a paragraph of your own.</p>
+    <span class="time-tag mono">20 minutes</span>
+  </header>
+
+  <nav class="steps" aria-label="Lesson steps">
+    <a href="#s1"><span class="n">1</span> Test the joins · 3 min</a>
+    <a href="#s2"><span class="n">2</span> The five joints · 4 min</a>
+    <a href="#s3"><span class="n">3</span> Build a paragraph · 10 min</a>
+    <a href="#s4"><span class="n">4</span> Check your work · 3 min</a>
+  </nav>
+
+  <!-- SECTION 1 -->
+  <section id="s1">
+    <div class="section-head"><h2>Test the joins</h2><span class="time">3 min</span></div>
+    <p class="lead">Paragraph B is built from the sentences in Paragraph A, joined with linking words.</p>
+
+    <div class="compare">
+      <div class="para-card">
+        <span class="label">Paragraph A</span>
+        <p>School should start later. Students are tired. They can't concentrate in the first lessons. Studies link more sleep to better grades. A later start would be awkward for some families. Several schools in the US have moved their start time.</p>
+      </div>
+      <div class="para-card">
+        <span class="label">Paragraph B</span>
+        <p>School should start later <button class="probe" aria-pressed="false" data-q="Does being tired lead straight to “school should start later”? What else could fix tiredness?">because</button> students are tired and, <button class="probe" aria-pressed="false" data-q="Does the second idea really follow from the first?">as a result</button>, they can't concentrate in the first lessons. <button class="probe" aria-pressed="false" data-q="Is this a new point, or the same point in different words?">Furthermore</button>, studies link more sleep to better grades. <button class="probe" aria-pressed="false" data-q="What does the writer admit here? Does admitting it make you trust them more, or less?">Although</button> a later start would be awkward for some families, several schools in the US have moved their start time, <button class="probe" aria-pressed="false" data-q="Look back at Paragraph A. Which idea in B isn't in A at all? Where did it come from?">which proves</button> it would work here.</p>
+      </div>
+    </div>
+
+    <div class="prompt-box">
+      <p>B sounds more convincing. Is it? Tap each orange word: what connection does it claim, and is that connection really there?</p>
+      <p class="probe-q" id="probeQ" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section id="s2">
+    <div class="section-head"><h2>The five joints</h2><span class="time">4 min</span></div>
+    <p class="lead">Each linking word has a job. It also has grammar: the tag next to each word shows what has to come after it.</p>
+
+    <div class="key">
+      <div class="key-item"><span class="t">Start,</span><br>Starts a sentence, with a comma after it.<br><i>However, …</i></div>
+      <div class="key-item"><span class="t">+ clause</span><br>Joins two full clauses.<br><i>although it rains, …</i></div>
+      <div class="key-item"><span class="t">+ noun</span><br>Needs a noun or <i>-ing</i> form after it.<br><i>despite the rain, …</i></div>
+      <div class="key-item"><span class="t">mid</span><br>Sits inside the sentence.<br><i>they also …</i></div>
+    </div>
+
+    <div class="pair">
+      <p class="yes"><span class="mark">✓</span><b>Although</b> school starts early, most students arrive on time.</p>
+      <p class="yes"><span class="mark">✓</span><b>Despite</b> the early start, most students arrive on time.</p>
+      <p class="no"><span class="mark">✗</span><s>Despite school starts early, most students arrive on time.</s></p>
+    </div>
+
+    <div class="joints" id="joints"></div>
+
+    <div class="care">
+      <h3>Handle with care</h3>
+      <p><span class="words">obviously, clearly, undoubtedly, of course</span> — these don't link two ideas. They tell the reader that everyone already agrees, so a sceptical reader starts looking for the weak spot. Use them only when the point really is beyond argument.</p>
+      <p><span class="words">apparently</span> means <i>anscheinend</i>, not <i>offensichtlich</i>.</p>
+    </div>
+
+    <h3 class="sub">Which joint? Tap the job each word is doing.</h3>
+    <div class="quiz" id="quiz"></div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section id="s3">
+    <div class="section-head"><h2>Build a paragraph</h2><span class="time">10 min</span></div>
+    <p class="lead">Choose an opinion.</p>
+    <div class="prompts" id="prompts"></div>
+    <p class="task">Write <b>5–6 sentences</b> arguing for it. Use at least <b>three joints</b>. Two of them must be <b>Concede</b> (admit one point for the other side, then answer it) and <b>Conclude</b>.</p>
+
+    <div class="writing-layout">
+      <div>
+        <label for="writer" class="mono" style="font-size:0.8rem;color:var(--ink-soft);display:block;margin-bottom:6px;" id="writerLabel">Your paragraph</label>
+        <textarea id="writer" placeholder="I believe that…"></textarea>
+        <div class="tools">
+          <span id="count">0 sentences</span>
+          <span class="btns">
+            <button class="tbtn" id="copyBtn" type="button">Copy paragraph</button>
+            <button class="tbtn" id="clearBtn" type="button">Clear</button>
+          </span>
+        </div>
+
+        <div class="mirror-wrap">
+          <h3>What the tracker sees</h3>
+          <div class="mirror" id="mirror" aria-live="off"></div>
+          <p class="mirror-note">The tracker only finds words. It can't tell whether each one is doing the right job. You and your partner can. Dotted underline: a handle-with-care word.</p>
+          <ul class="flags" id="flags" aria-live="polite"></ul>
+        </div>
+      </div>
+
+      <div class="side">
+        <div class="panel">
+          <h3>Joints used</h3>
+          <div id="dots"></div>
+          <div class="req" id="req"></div>
+        </div>
+        <div class="panel">
+          <h3>Quick reference</h3>
+          <div id="ref"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section id="s4">
+    <div class="section-head"><h2>Check your work</h2><span class="time">3 min</span></div>
+    <p class="lead">Read your paragraph aloud to a partner. Then tick only what's true.</p>
+    <ul class="checklist" id="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">My opinion is clear in my first sentence.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">I admitted one point for the other side, and then answered it.</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Every “so”, “therefore” and “as a result” introduces a real result. None of my linking words claims more than my facts show.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">After “despite”, “due to” and “because of” comes a noun, not a whole sentence.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">My partner could name the job of every linking word I used.</label></li>
+    </ul>
+  </section>
+
+  <footer>Full reference list with German translations: linking words and phrases, p.82.</footer>
+</div>
+
+<script>
+(function(){
+  var JOINTS = [
+    {id:'add', name:'Add a point', short:'Add', job:'Stacks another point in the same direction.',
+     words:[['In addition','s'],['Furthermore','s'],['Moreover','s'],['also','m'],['as well as','n'],['in addition to','n']],
+     match:['in addition to','in addition','furthermore','moreover','also','as well as'],
+     ex:'Uniforms save time every morning. <b>Furthermore</b>, they make differences in family income less visible.'},
+    {id:'example', name:'Give an example', short:'Example', job:'Makes a general point concrete.',
+     words:[['For example','s'],['For instance','s'],['such as','n'],['in particular','m']],
+     match:['for example','for instance','such as','in particular'],
+     ex:'Some items, <b>such as</b> blazers, are expensive to replace.'},
+    {id:'cause', name:'Cause and result', short:'Cause / result', job:'Says why something happens, or what follows from it.',
+     words:[['because','c'],['since','c'],[', so','c'],['because of','n'],['due to','n'],['Therefore','s'],['As a result','s'],['Consequently','s']],
+     match:['because of','because','since','due to','therefore','as a result','consequently','thus'],
+     ex:'Nobody competes over clothes. <b>Therefore</b>, there is less pressure to buy brands.',
+     note:'<b>so that</b> shows a purpose (<i>damit</i>), not a result: <i>I left early so that I would be on time.</i>'},
+    {id:'concede', name:'Concede and contrast', short:'Concede', job:'Admits a point for the other side, or turns to the opposite view.',
+     words:[['although','c'],['even though','c'],['whereas','c'],['despite','n'],['in spite of','n'],['unlike','n'],['However','s'],['Nevertheless','s'],['On the other hand','s']],
+     match:['although','even though','whereas','despite','in spite of','unlike','however','nevertheless','on the other hand'],
+     ex:'<b>Although</b> uniforms limit self-expression, they reduce the pressure to follow fashion.',
+     note:'The strongest move in an opinion paragraph: admit one point for the other side, then answer it.'},
+    {id:'conclude', name:'Conclude', short:'Conclude', job:'Pulls the argument together into a final judgement.',
+     words:[['Overall','s'],['On balance','s'],['All in all','s'],['To sum up','s'],['For these reasons','s']],
+     match:['overall','on balance','all in all','to sum up','for these reasons'],
+     ex:'<b>On balance</b>, the advantages of uniforms outweigh the costs.'}
+  ];
+  var TAGS = {s:'Start,', c:'+ clause', n:'+ noun', m:'mid'};
+  var CARE = ['obviously','clearly','undoubtedly','of course','apparently','naturally'];
+
+  var QUIZ = [
+    ['Some subjects, <b>such as</b> maths, need full concentration.','example'],
+    ['Students sleep too little. <b>As a result</b>, their grades suffer.','cause'],
+    ['<b>Despite</b> the inconvenience for some families, the change is worth it.','concede'],
+    ['Teenagers’ body clocks shift later. <b>In addition</b>, many have long commutes.','add'],
+    ['<b>On balance</b>, the school day should start at nine.','conclude'],
+    ['Many students arrive exhausted <b>due to</b> early buses.','cause']
+  ];
+
+  var PROMPTS = [
+    'Phones should be banned for the whole school day.',
+    'Homework should be optional.',
+    'The voting age should be 16.',
+    'My own opinion'
+  ];
+
+  var STORE = 'linking-words-y10';
+  var state = {prompt:-1, text:'', checks:{}};
+  try{ var raw = localStorage.getItem(STORE); if(raw){ var p = JSON.parse(raw); if(p && typeof p === 'object'){ state.prompt = typeof p.prompt === 'number' ? p.prompt : -1; state.text = p.text || ''; state.checks = p.checks || {}; } } }catch(e){}
+  function save(){ try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} }
+
+  function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function jointById(id){ for(var i=0;i<JOINTS.length;i++){ if(JOINTS[i].id===id) return JOINTS[i]; } return null; }
+
+  /* Section 1: probes */
+  var probeQ = document.getElementById('probeQ');
+  document.querySelectorAll('.probe').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.probe').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      probeQ.textContent = b.getAttribute('data-q');
+    });
+  });
+
+  /* Section 2: cards */
+  var jointsEl = document.getElementById('joints');
+  JOINTS.forEach(function(j){
+    var chips = j.words.map(function(w){
+      return '<li class="chip"><span class="w">'+esc(w[0])+'</span><span class="t">'+TAGS[w[1]]+'</span></li>';
+    }).join('');
+    var el = document.createElement('article');
+    el.className = 'joint j-'+j.id;
+    el.innerHTML = '<h3>'+j.name+'</h3><p class="job">'+j.job+'</p><ul class="chips">'+chips+'</ul><p class="ex">'+j.ex+'</p>' + (j.note ? '<p class="note">'+j.note+'</p>' : '');
+    jointsEl.appendChild(el);
+  });
+
+  /* Section 2: quiz */
+  var quizEl = document.getElementById('quiz');
+  QUIZ.forEach(function(item, qi){
+    var div = document.createElement('div');
+    div.className = 'q';
+    var opts = JOINTS.map(function(j){ return '<button type="button" class="opt" data-id="'+j.id+'">'+j.short+'</button>'; }).join('');
+    div.innerHTML = '<p class="s">'+item[0]+'</p><div class="opts">'+opts+'</div><p class="fb" aria-live="polite"></p>';
+    var fb = div.querySelector('.fb');
+    div.querySelectorAll('.opt').forEach(function(b){
+      b.addEventListener('click', function(){
+        if(div.dataset.done) return;
+        if(b.dataset.id === item[1]){
+          b.classList.add('right');
+          div.dataset.done = '1';
+          fb.textContent = 'Yes.';
+        } else {
+          b.classList.add('wrong');
+          fb.textContent = 'Not that one. What does the word do to the two ideas?';
+        }
+      });
+    });
+    quizEl.appendChild(div);
+  });
+
+  /* Section 3: prompts */
+  var promptsEl = document.getElementById('prompts');
+  var writer = document.getElementById('writer');
+  var writerLabel = document.getElementById('writerLabel');
+  PROMPTS.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'prompt-btn'; b.textContent = p;
+    b.setAttribute('aria-pressed', String(state.prompt === i));
+    b.addEventListener('click', function(){
+      state.prompt = i; save();
+      promptsEl.querySelectorAll('.prompt-btn').forEach(function(o, k){ o.setAttribute('aria-pressed', String(k === i)); });
+      setPrompt();
+      writer.focus();
+    });
+    promptsEl.appendChild(b);
+  });
+  function setPrompt(){
+    if(state.prompt >= 0 && state.prompt < PROMPTS.length - 1){
+      writerLabel.textContent = 'Your paragraph: “' + PROMPTS[state.prompt] + '”';
+      writer.placeholder = 'Start with your opinion…';
+    } else {
+      writerLabel.textContent = 'Your paragraph';
+      writer.placeholder = 'I believe that…';
+    }
+  }
+
+  /* Reference panel + dots */
+  var refEl = document.getElementById('ref');
+  var dotsEl = document.getElementById('dots');
+  JOINTS.forEach(function(j){
+    var r = document.createElement('div');
+    r.className = 'ref-row j-'+j.id;
+    r.innerHTML = '<b>'+j.name+'</b>' + j.words.map(function(w){ return esc(w[0].replace(/^,\s*/,'')); }).join(', ');
+    refEl.appendChild(r);
+    var d = document.createElement('div');
+    d.className = 'dot-row j-'+j.id; d.dataset.cat = j.id;
+    d.innerHTML = '<span class="dot"></span>'+j.name;
+    dotsEl.appendChild(d);
+  });
+
+  /* Matching */
+  function rx(phrase){
+    return new RegExp('\\b' + phrase.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+') + '\\b', 'gi');
+  }
+  function findLinks(text){
+    var hits = [], m;
+    JOINTS.forEach(function(j){
+      j.match.forEach(function(p){
+        var r = rx(p);
+        while((m = r.exec(text))){ hits.push({s:m.index, e:m.index+m[0].length, cat:j.id}); }
+      });
+    });
+    // "so" only as a result link: after a comma, or at the start of a sentence; not "so that / so many…"
+    var soR = /(,\s*|(?:^|[.!?\n])\s*)(so)\b(?!\s+(?:that|much|many|far|long|few|little)\b)/gi;
+    while((m = soR.exec(text))){
+      var s = m.index + m[1].length;
+      hits.push({s:s, e:s+2, cat:'cause'});
+    }
+    CARE.forEach(function(p){
+      var r = rx(p);
+      while((m = r.exec(text))){ hits.push({s:m.index, e:m.index+m[0].length, cat:'care'}); }
+    });
+    hits.sort(function(a,b){ return a.s - b.s || (b.e - b.s) - (a.e - a.s); });
+    var out = [], end = -1;
+    hits.forEach(function(h){ if(h.s >= end){ out.push(h); end = h.e; } });
+    return out;
+  }
+
+  function grammarFlags(text){
+    var flags = [], seen = {}, m;
+    var NP = [['despite','although'],['in spite of','although'],['due to','because'],['because of','because'],['unlike','whereas']];
+    NP.forEach(function(pair){
+      var r = new RegExp('\\b' + pair[0].replace(/ /g,'\\s+') + "\\s+((?:[a-z'’]+\\s+){0,3})(is|are|was|were|has|have|had|can|could|will|would|do|does|did|should|must)\\b", 'gi');
+      while((m = r.exec(text))){
+        if(/^the\s+fact\b/i.test(m[1])) continue;
+        if(seen[pair[0]]) continue;
+        seen[pair[0]] = 1;
+        flags.push({t:'warn', msg:'Check “'+pair[0]+'”: it needs a noun after it (“'+pair[0]+' the rain”), not a whole sentence. For a whole sentence, use “'+pair[1]+'”.'});
+      }
+    });
+    var cr = /\b(although|even though|whereas|because)\s*,/gi;
+    while((m = cr.exec(text))){
+      var w = m[1].toLowerCase().replace(/\s+/g,' ');
+      if(seen['c-'+w]) continue; seen['c-'+w] = 1;
+      flags.push({t:'warn', msg:'No comma straight after “'+w+'”. It joins two clauses: “'+w+' it rains, …”.'});
+    }
+    var sr = /(?:^|[.!?\n])\s*(however|furthermore|moreover|nevertheless|therefore|consequently|overall|as a result|for example|for instance|on the other hand|to sum up|all in all|on balance)\s+[a-z]/gi;
+    while((m = sr.exec(text))){
+      var w2 = m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase();
+      if(seen['s-'+w2]) continue; seen['s-'+w2] = 1;
+      flags.push({t:'warn', msg:'Add a comma after “'+w2+'” when it starts a sentence.'});
+    }
+    if(/\bso\s+that\b/i.test(text)){
+      flags.push({t:'info', msg:'You used “so that”. That shows a purpose (damit). If you meant a result, use “so” or “therefore”.'});
+    }
+    return flags;
+  }
+
+  var mirror = document.getElementById('mirror');
+  var flagsEl = document.getElementById('flags');
+  var reqEl = document.getElementById('req');
+  var countEl = document.getElementById('count');
+
+  function render(){
+    var text = writer.value;
+    var links = findLinks(text);
+
+    if(!text.trim()){
+      mirror.innerHTML = '<span class="empty">Your paragraph will appear here with its linking words marked.</span>';
+    } else {
+      var html = '', pos = 0;
+      links.forEach(function(h){
+        html += esc(text.slice(pos, h.s));
+        var cls = h.cat === 'care' ? 'hl hl-care' : 'hl j-'+h.cat;
+        var title = h.cat === 'care' ? 'Handle with care' : jointById(h.cat).name;
+        html += '<mark class="'+cls+'" title="'+title+'">'+esc(text.slice(h.s, h.e))+'</mark>';
+        pos = h.e;
+      });
+      html += esc(text.slice(pos));
+      mirror.innerHTML = html;
+    }
+
+    var used = {};
+    links.forEach(function(h){ if(h.cat !== 'care') used[h.cat] = true; });
+    var n = 0;
+    dotsEl.querySelectorAll('.dot-row').forEach(function(row){
+      var on = !!used[row.dataset.cat];
+      row.classList.toggle('filled', on);
+      if(on) n++;
+    });
+    var okJ = n >= 3, okC = !!used.concede, okE = !!used.conclude;
+    var all = okJ && okC && okE;
+    reqEl.innerHTML =
+      '<span class="'+(okJ?'met':'')+'">'+(okJ?'✓':'○')+' Three joints ('+n+' of 5)</span>' +
+      '<span class="'+(okC?'met':'')+'">'+(okC?'✓':'○')+' Concede</span>' +
+      '<span class="'+(okE?'met':'')+'">'+(okE?'✓':'○')+' Conclude</span>' +
+      '<span class="status'+(all?' ok':'')+'">'+(all ? 'Target met. Now check that every word is doing its real job.' : 'Target: three joints, including Concede and Conclude.')+'</span>';
+
+    var flags = text.trim() ? grammarFlags(text) : [];
+    flagsEl.innerHTML = flags.map(function(f){ return '<li class="'+(f.t==='info'?'info':'')+'">'+esc(f.msg)+'</li>'; }).join('');
+
+    var sentences = text.split(/[.!?]+/).filter(function(s){ return s.trim().split(/\s+/).length >= 2; }).length;
+    countEl.textContent = sentences + (sentences === 1 ? ' sentence' : ' sentences') + ' (target 5–6)';
+  }
+
+  writer.value = state.text;
+  setPrompt();
+  writer.addEventListener('input', function(){ state.text = writer.value; save(); render(); });
+  render();
+
+  /* Copy + clear */
+  var copyBtn = document.getElementById('copyBtn');
+  copyBtn.addEventListener('click', function(){
+    function done(){ copyBtn.textContent = 'Copied'; setTimeout(function(){ copyBtn.textContent = 'Copy paragraph'; }, 1500); }
+    try{
+      navigator.clipboard.writeText(writer.value).then(done, function(){ writer.select(); try{ document.execCommand('copy'); done(); }catch(e){} });
+    }catch(e){ writer.select(); try{ document.execCommand('copy'); done(); }catch(e2){} }
+  });
+  var clearBtn = document.getElementById('clearBtn'), armed = null;
+  clearBtn.addEventListener('click', function(){
+    if(!armed){
+      clearBtn.textContent = 'Tap again to clear';
+      armed = setTimeout(function(){ armed = null; clearBtn.textContent = 'Clear'; }, 3000);
+      return;
+    }
+    clearTimeout(armed); armed = null; clearBtn.textContent = 'Clear';
+    writer.value = ''; state.text = ''; save(); render(); writer.focus();
+  });
+
+  /* Checklist */
+  document.querySelectorAll('#checklist input').forEach(function(cb){
+    cb.checked = !!state.checks[cb.id];
+    cb.addEventListener('change', function(){ state.checks[cb.id] = cb.checked; save(); });
+  });
+})();
+</script>
+</body>
+</html>
